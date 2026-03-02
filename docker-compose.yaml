@@ -13,5 +13,18 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./database/sun.sql:/docker-entrypoint-initdb.d/sun.sql
 
+  sun-api:
+    build: ./sun-api
+    container_name: sun_api
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      DB_URL: jdbc:postgresql://postgres_db:5432/${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "8080:8080"
+
 volumes:
   postgres_data:
