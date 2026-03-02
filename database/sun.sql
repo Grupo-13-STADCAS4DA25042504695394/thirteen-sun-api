@@ -1,10 +1,10 @@
 CREATE TABLE lead (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(150) NOT NULL,
-    valor_medio_mes NUMERIC(10,2),
+    perfil_de_consumo INTEGER NOT NULL CHECK (perfil_de_consumo BETWEEN 1 AND 5),
     cep VARCHAR(10),
     email VARCHAR(150) NOT NULL,
-    telefone VARCHAR(20),
+    telefone VARCHAR(20),a
     CONSTRAINT unique_lead_email UNIQUE (email)
 );
 
@@ -33,4 +33,3 @@ CREATE TABLE customer_lead (
         REFERENCES lead(id)
         ON DELETE CASCADE
 );
-
