@@ -38,9 +38,29 @@ public class LeadController {
         return ResponseEntity.ok(leadService.findById(id));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Lead> update(
+            @PathVariable Long id,
+            @RequestBody Lead updatedLead) {
+
+        Lead lead = leadService.update(id, updatedLead);
+        return ResponseEntity.ok(lead);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         leadService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+
+    @GetMapping("/perfil/{perfil}")
+    public ResponseEntity<List<Lead>> findByPerfil(
+            @PathVariable Integer perfil) {
+
+        return ResponseEntity.ok(
+                leadService.findByPerfilDeConsumo(perfil)
+        );
+    }
+
 }
