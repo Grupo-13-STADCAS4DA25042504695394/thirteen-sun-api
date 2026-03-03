@@ -16,7 +16,6 @@ import jakarta.persistence.Table;
 @Table(name = "customer_lead")
 public class CustomerLead {
 
-
     @EmbeddedId
     private CustomerLeadId id;
 
@@ -32,5 +31,56 @@ public class CustomerLead {
 
     @Column(name = "data_envio")
     private LocalDateTime dataEnvio;
+
+
+    public CustomerLead() {
+    }
+
+
+    public CustomerLead(CustomerLeadId id, Customer customer, Lead lead, LocalDateTime dataEnvio) {
+        this.id = id;
+        this.customer = customer;
+        this.lead = lead;
+        this.dataEnvio = dataEnvio;
+    }
+
+
+    public CustomerLead(Customer customer, Lead lead, LocalDateTime dataEnvio) {
+        this.customer = customer;
+        this.lead = lead;
+        this.dataEnvio = dataEnvio;
+    }
+
+    public CustomerLeadId getId() {
+        return id;
+    }
+
+    public void setId(CustomerLeadId id) {
+        this.id = id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Lead getLead() {
+        return lead;
+    }
+
+    public void setLead(Lead lead) {
+        this.lead = lead;
+    }
+
+    public LocalDateTime getDataEnvio() {
+        return dataEnvio;
+    }
+
+    public void setDataEnvio(LocalDateTime dataEnvio) {
+        this.dataEnvio = dataEnvio;
+    }
 
 }
