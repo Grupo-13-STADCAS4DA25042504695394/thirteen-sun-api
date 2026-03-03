@@ -19,6 +19,10 @@ public class LeadService {
         return leadRepository.save(lead);
     }
 
+    public List<Lead> findByPerfilDeConsumo(Integer perfil) {
+        return leadRepository.findByPerfilDeConsumo(perfil);
+    }
+
     public List<Lead> findAll() {
         return leadRepository.findAll();
     }
@@ -30,5 +34,19 @@ public class LeadService {
 
     public void delete(Long id) {
         leadRepository.deleteById(id);
+    }
+
+    public Lead update(Long id, Lead updatedLead) {
+
+        Lead existing = leadRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Lead não encontrado"));
+
+        existing.setNome(updatedLead.getNome());
+        existing.setPerfilDeConsumo(updatedLead.getPerfilDeConsumo());
+        existing.setCep(updatedLead.getCep());
+        existing.setEmail(updatedLead.getEmail());
+        existing.setTelefone(updatedLead.getTelefone());
+
+        return leadRepository.save(existing);
     }
 }
