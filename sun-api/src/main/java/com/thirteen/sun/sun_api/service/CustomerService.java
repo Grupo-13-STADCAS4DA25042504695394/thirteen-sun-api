@@ -31,4 +31,16 @@ public class CustomerService {
     public void delete(Long id) {
         customerRepository.deleteById(id);
     }
+
+    public Customer update(Long id, Customer updatedCustomer) {
+
+    Customer existing = customerRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Customer não encontrado"));
+
+    existing.setName(updatedCustomer.getName());
+    existing.setEmail(updatedCustomer.getEmail());
+    existing.setTelefone(updatedCustomer.getTelefone());
+
+    return customerRepository.save(existing);
+}
 }
