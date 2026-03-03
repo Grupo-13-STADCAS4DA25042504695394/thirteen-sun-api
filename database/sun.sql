@@ -1,15 +1,15 @@
 CREATE TABLE lead (
-    id SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     nome VARCHAR(150) NOT NULL,
     perfil_de_consumo INTEGER NOT NULL CHECK (perfil_de_consumo BETWEEN 1 AND 5),
     cep VARCHAR(10),
     email VARCHAR(150) NOT NULL,
-    telefone VARCHAR(20),a
+    telefone VARCHAR(20),
     CONSTRAINT unique_lead_email UNIQUE (email)
 );
 
 CREATE TABLE customer (
-    id SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
     email VARCHAR(150) NOT NULL,
     telefone VARCHAR(20),
@@ -17,8 +17,8 @@ CREATE TABLE customer (
 );
 
 CREATE TABLE customer_lead (
-    customer_id INTEGER NOT NULL,
-    lead_id INTEGER NOT NULL,
+    customer_id BIGINT NOT NULL,
+    lead_id BIGINT NOT NULL,
     data_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (customer_id, lead_id),
