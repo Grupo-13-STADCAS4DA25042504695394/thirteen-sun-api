@@ -51,4 +51,15 @@ public class CustomerLeadService {
 
         return customerLeadRepository.save(customerLead);
     }
+
+    public void removerVinculo(Long customerId, Long leadId) {
+
+        CustomerLeadId id = new CustomerLeadId(customerId, leadId);
+
+        if (!customerLeadRepository.existsById(id)) {
+            throw new RuntimeException("Relacionamento não encontrado");
+        }
+
+        customerLeadRepository.deleteById(id);
+    }
 }
