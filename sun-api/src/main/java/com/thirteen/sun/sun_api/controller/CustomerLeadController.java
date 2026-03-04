@@ -4,7 +4,6 @@ package com.thirteen.sun.sun_api.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.thirteen.sun.sun_api.models.CustomerLead;
 import com.thirteen.sun.sun_api.service.CustomerLeadService;
 
 @RestController
@@ -18,13 +17,22 @@ public class CustomerLeadController {
     }
 
     @PostMapping("/vincular")
-    public ResponseEntity<CustomerLead> vincular(
+    public ResponseEntity<String> vincular(
             @RequestParam Long customerId,
             @RequestParam Long leadId) {
 
-        CustomerLead customerLead =
-                customerLeadService.vincularLeadAoCustomer(customerId, leadId);
+        customerLeadService.vincularLeadAoCustomer(customerId, leadId);
 
-        return ResponseEntity.ok(customerLead);
+        return ResponseEntity.ok("Vinculado com sucesso");
     }
+
+    @DeleteMapping
+    public ResponseEntity<Void> removerRelacionamento(
+            @RequestParam Long customerId,
+            @RequestParam Long leadId) {
+
+        customerLeadService.removerVinculo(customerId, leadId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
