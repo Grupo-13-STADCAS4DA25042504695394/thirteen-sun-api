@@ -2,15 +2,9 @@ package com.thirteen.sun.sun_api.models;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "customer_lead")
@@ -21,34 +15,26 @@ public class CustomerLead {
 
     @ManyToOne
     @MapsId("customerId")
-    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_customer"))
+    @JoinColumn(name = "customer_id")
+    @JsonBackReference(value = "customer-lead")
     private Customer customer;
 
     @ManyToOne
     @MapsId("leadId")
-    @JoinColumn(name = "lead_id", foreignKey = @ForeignKey(name = "fk_lead"))
+    @JoinColumn(name = "lead_id")
+    @JsonBackReference(value = "lead-customer")
     private Lead lead;
 
     @Column(name = "data_envio")
     private LocalDateTime dataEnvio;
 
-
     public CustomerLead() {
     }
 
-
-    public CustomerLead(CustomerLeadId id, Customer customer, Lead lead, LocalDateTime dataEnvio) {
-        this.id = id;
+    public CustomerLead(Customer customer, Lead lead) {
         this.customer = customer;
         this.lead = lead;
-        this.dataEnvio = dataEnvio;
-    }
-
-
-    public CustomerLead(Customer customer, Lead lead, LocalDateTime dataEnvio) {
-        this.customer = customer;
-        this.lead = lead;
-        this.dataEnvio = dataEnvio;
+        this.id = new CustomerLeadId(customer.getId(), lead.getId());
     }
 
     public CustomerLeadId getId() {
@@ -63,24 +49,23 @@ public class CustomerLead {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public Lead getLead() {
         return lead;
-    }
-
-    public void setLead(Lead lead) {
-        this.lead = lead;
     }
 
     public LocalDateTime getDataEnvio() {
         return dataEnvio;
     }
 
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void setLead(Lead lead) {
+        this.lead = lead;
+    }
+
     public void setDataEnvio(LocalDateTime dataEnvio) {
         this.dataEnvio = dataEnvio;
     }
-
 }
